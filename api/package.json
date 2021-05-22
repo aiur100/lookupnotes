@@ -1,0 +1,25 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "local": "DEV=true APP_ENV=local npx nodemon index.js",
+    "test": "DEV=true APP_ENV=local mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-useragent": "^1.0.15",
+    "lambda-log": "^3.0.0",
+    "node-fetch": "^2.6.1",
+    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-http": "^2.7.0"
+  },
+  "devDependencies": {
+    "-": "^0.0.1",
+    "mocha": "^8.4.0"
+  }
+}
