@@ -3,7 +3,7 @@ plugins:
   - serverless-dynamodb-local
 custom:
   stage: ${opt:stage, self:provider.stage}
-  tableName: ${opt:stage, self:provider.stage}-docs
+  tableName: ${opt:stage, self:provider.stage}-notes
   dynamodb:
     stages:
       - dev
@@ -19,7 +19,7 @@ custom:
       test:
         sources:
           - table: ${self:custom.tableName}
-            sources: [./test-docs.json]
+            sources: [./test-notes.json]
 provider:
   name: aws
   runtime: nodejs14.x
@@ -37,9 +37,10 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource:
-        - { "Fn::GetAtt": ["DocsTable", "Arn" ] }
+        - { "Fn::GetAtt": ["NotesTable", "Arn" ] }
   environment: 
     APP_ENV: ${self:custom.stage}
+    NOTES_TABLE: ${self:custom.tableName}
 functions:
   app:
     handler: lambda-index.handler
@@ -54,7 +55,7 @@ functions:
           cors: true
 resources:
   Resources:
-    DocsTable:
+    NotesTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
         StreamSpecification:

@@ -10,6 +10,15 @@ app.use(express.json());
  
 app.use(useragent.express());
 
+//CORS
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
+    if ('OPTIONS' === req.method) res.send(200);
+    else next();
+  });
+
 app.use((req,res,next) => {
     req.config = config;
     const log = require("lambda-log");
@@ -17,11 +26,10 @@ app.use((req,res,next) => {
         method: req.method,
         path: req.path,
         host: req.hostname,
-        useragent: req.useragent,
         ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress
     };
     req.logger = log;
-    req.logger.info("Request received");
+    req.logger.info("Request received",{ useragent: req.useragent });
     next();
 });
 

@@ -10,7 +10,7 @@ const dynamoDbClient = environment === "local" ?
 module.exports = {
     port: process.env.PORT || 3000,
     env: process.env.APP_ENV || "local",
-    docsTable: process.env.DOCS_TABLE || "dev-docs",
+    notesTable: process.env.NOTES_TABLE || "dev-notes",
     dynamoDbClient,
     aws
 };

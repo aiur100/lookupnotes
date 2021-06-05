@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "local-db": "DEV=true APP_ENV=local sls dynamodb start > /dev/null 2>&1",
     "local": "DEV=true APP_ENV=local npx nodemon index.js",
     "test": "DEV=true APP_ENV=local mocha"
   },
